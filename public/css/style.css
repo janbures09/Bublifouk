@@ -87,6 +87,7 @@
 }
 
 .neon-btn {
+    font-family: 'Waltograph', sans-serif;
     display: inline-block;
     padding: 8px 15px;
     text-decoration: none;
@@ -124,6 +125,7 @@
     background-color: transparent;
     color: #ff3333;
     border: 2px solid #ff3333;
+    
 }
 
 .neon-btn-delete:hover {
@@ -226,6 +228,16 @@
     z-index: 50;
 }
 
+/* Neviditelný most pro kurzor myši - udrží hover aktivní i přes mezeru */
+.neon-dropdown-container::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 15px; /* Bezpečně překryje 5px mezeru nad menu */
+}
+
 .neon-dropdown-menu {
     display: none;
     position: absolute;
@@ -245,6 +257,8 @@
 }
 
 .neon-dropdown-item {
+    font-family: 'Waltograph', sans-serif;
+    font-size: 14px;
     display: block;
     padding: 10px 15px;
     color: #fff;
@@ -273,3 +287,4 @@
 .neon-dropdown-header strong {
     color: #39ff14;
 }
+

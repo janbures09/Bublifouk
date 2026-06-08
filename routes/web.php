@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\AdminProductController;
+use App\Http\Controllers\AdminCategoryController;
+
 
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
@@ -17,6 +19,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     })->name('admin.products');
 
     Route::resource('produkty', AdminProductController::class)->names('admin.products');
+    Route::resource('kategorie', AdminCategoryController::class)->names('admin.categories');
 });
 
 Route::get('/', [ShopController::class, 'index'])->name('home');

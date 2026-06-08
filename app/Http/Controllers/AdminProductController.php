@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
 
 
 class AdminProductController extends Controller
@@ -15,8 +16,6 @@ class AdminProductController extends Controller
     {
         $products = Product::latest()->get();
 
-        // 2. Vrátíme pohled a pošleme mu proměnnou s produkty
-        // Funkce compact('products') je jen elegantní zkratka pro ["products" => $products]
         return view('admin.products.index', compact('products'));
     }
 
@@ -25,7 +24,9 @@ class AdminProductController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+
+        return view('admin.products.create', compact('categories'));
     }
 
     /**
@@ -33,7 +34,15 @@ class AdminProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+
+        Product::create($validatedData);
+
+        return redirect()->route('admin.products.index')->with('success', 'Nový produkt byl úspěšně přidán!');
     }
 
     /**
@@ -49,7 +58,11 @@ class AdminProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+    
+        $categories = Category::all();
+
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
     /**
@@ -57,7 +70,17 @@ class AdminProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+
+        $product = Product::findOrFail($id);
+
+        $product->update($validatedData);
+
+        return redirect()->route('admin.products.index')->with('success', 'Produkt byl úspěšně upraven!');
     }
 
     /**
@@ -65,6 +88,10 @@ class AdminProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product = Product::findOrFail($id);
+
+        $product->delete();
+
+        return redirect()->route('admin.products.index')->with('success', 'Produkt byl úspěšně smazán.');
     }
 }

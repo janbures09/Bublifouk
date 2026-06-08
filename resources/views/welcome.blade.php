@@ -5,14 +5,14 @@
     <title>Bublifouk</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
-<body class="neon-theme"></body>
+<body class="neon-theme">
     <div class="neon-container">
         <div class="neon-header-layout">
             <h1 class="neon-title" style="border: none; margin: 0; padding: 0;">Vítejte v e-shopu Bublifouk!</h1>
             
             <div class="neon-dropdown-container">
                 <button class="neon-btn neon-btn-add">
-                    👤 Můj účet ▼
+                    Můj účet ▼
                 </button>
                 
                 <div class="neon-dropdown-menu">
@@ -43,7 +43,7 @@
 
         <div class="neon-actions" style="text-align: right;">
             <a href="{{ route('cart.show') }}" class="neon-btn neon-btn-edit">
-                🛒 Zobrazit nákupní košík
+                Zobrazit nákupní košík
             </a>
         </div>
 
